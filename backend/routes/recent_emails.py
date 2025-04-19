@@ -50,9 +50,28 @@ def get_gmail_service():
 def format_relative_time(email_date_str: str) -> dict:
     """Convert email date to detailed time information including relative and absolute formats."""
     try:
-        # Parse the email date string to a datetime object
-        # Example format: "Wed, 17 Apr 2025 10:23:45 +0000"
-        email_date = datetime.strptime(email_date_str, "%a, %d %b %Y %H:%M:%S %z")
+        # Try different date formats
+        # Gmail can return dates in various formats
+        formats_to_try = [
+            "%a, %d %b %Y %H:%M:%S %z",  # Wed, 17 Apr 2025 10:23:45 +0000
+            "%a, %d %b %Y %H:%M:%S %Z",  # Wed, 17 Apr 2025 10:23:45 UTC
+            "%d %b %Y %H:%M:%S %z",      # 17 Apr 2025 10:23:45 +0000
+            "%d %b %Y %H:%M:%S %Z",      # 17 Apr 2025 10:23:45 UTC
+            "%a, %d %b %Y %H:%M:%S",     # Wed, 17 Apr 2025 10:23:45
+        ]
+        
+        email_date = None
+        for date_format in formats_to_try:
+            try:
+                email_date = datetime.strptime(email_date_str, date_format)
+                break
+            except ValueError:
+                continue
+                
+        if email_date is None:
+            # If all formats fail, try a more flexible approach
+            import dateutil.parser
+            email_date = dateutil.parser.parse(email_date_str)
         
         # Convert to local time
         email_date = email_date.replace(tzinfo=None)

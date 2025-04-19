@@ -12,6 +12,7 @@ import TeamSwitcher from "@/components/team-switcher"
 import { UserNav } from "@/components/user-nav"
 import { TodoList } from "@/components/todo-list"
 import { CustomTagsTable } from "@/components/custom-tags-table"
+import { EmailAnalytics } from "@/components/email-analytics"
 
 export const metadata: Metadata = {
   title: "Dashboard | AutoMail",
@@ -325,6 +326,9 @@ export default function DashboardPage() {
                   </CardContent>
                 </Card>
               </div>
+            </TabsContent>
+            <TabsContent value="analytics" className="space-y-4">
+              <EmailAnalytics />
             </TabsContent>
             <TabsContent value="custom-tags" className="space-y-4">
               <Card>
