@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+
+# Environment
+.env
+*.env
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+backend_backup
+
+# Credentials and tokens
+credentials.json
+token.json
+backend/credentials.json
+backend/token.json
+
+# Database
+*.sqlite3
+*.db
+backend/*.sqlite3
+backend/*.db
+
+# Logs
+*.log
+backend/*.log
+
+# Node/npm (if any frontend present)
+node_modules/
+build/
+dist/
+
+# OS junk files
+Thumbs.db
+
+# Backup and temp files
+*~
+*.bak
+*.swp
+
+# Test output
+htmlcov/
+.coverage
+.cache
+
+# Git
+.git/
