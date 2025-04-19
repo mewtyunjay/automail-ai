@@ -2,10 +2,17 @@ import os
 import json
 import base64
 from datetime import datetime
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from googleapiclient.discovery import build
 from routes.email_tagging import router as email_tagging_router
+from routes.auto_reply_draft import router as auto_reply_draft_router
+from routes.email_reminders import router as email_reminders_router
+from routes.email_finance import router as email_finance_router
 import logging
 
 from db import get_mongodb_collection, execute_postgres_query, get_postgres_connection, get_mongodb_client
@@ -29,6 +36,9 @@ app.add_middleware(
 
 # Include microservice routers
 app.include_router(email_tagging_router)
+app.include_router(auto_reply_draft_router)
+app.include_router(email_reminders_router)
+app.include_router(email_finance_router)
 
 # Path to credentials and token files
 CREDENTIALS_FILE = "../credentials.json"
